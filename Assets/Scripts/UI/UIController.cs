@@ -2,23 +2,33 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
+using UnityEditor.Rendering.LookDev;
 
 public class UIController : MonoBehaviour
 {
-    public Text itemDataText;
+    public MouseContextMenuController contextMenu;
 
-    public static Action<ClickableData> sampleTextEvent; 
+#region CONTEXT MENU ACTIONS
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static Action ContextMenuStartEvent;
+    public static Action ContextMenuEvent;
+    public static Action ContextMenuEndEvent;
+    public static Action<ClickableData> ContextMenuDataEvent;
+    
+#endregion
+    
     private void OnEnable() {
-        sampleTextEvent += HandleSampleTextEvent;
+        ContextMenuEvent += contextMenu.UpdateMenuPosition;
+        ContextMenuStartEvent += contextMenu.ShowMouseContextMenu;
+        ContextMenuDataEvent +=  contextMenu.SetContextMenuData;
+        ContextMenuEndEvent += contextMenu.HideMouseContextMenu;
+
     }
 
     private void OnDisable() {
-        sampleTextEvent -= HandleSampleTextEvent;
+        ContextMenuEvent -= contextMenu.UpdateMenuPosition;
+        ContextMenuStartEvent -= contextMenu.ShowMouseContextMenu;
+        ContextMenuEndEvent -= contextMenu.HideMouseContextMenu;
     }
 
-    private void HandleSampleTextEvent(ClickableData itemData){
-        itemDataText.text = itemData.itemName + " " + itemData.itemDescription;
-    }
 }
