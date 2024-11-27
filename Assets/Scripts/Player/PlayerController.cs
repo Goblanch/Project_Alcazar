@@ -9,12 +9,16 @@ public class PlayerController : MonoBehaviour
     private bool _mouseHold;
     private IClickable _lastClickable;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    private void OnEnable() {
         input.ClickEvent            += HandleClick;
         input.MouseStartHoldEvent   += HandleStartMouseHold;
         input.MouseEndHoldEvent     += HandleEndMouseHold;
+    }
+
+    private void OnDisable(){
+        input.ClickEvent            -= HandleClick;
+        input.MouseStartHoldEvent   -= HandleStartMouseHold;
+        input.MouseEndHoldEvent     -= HandleEndMouseHold;
     }
 
     private void Update() {
