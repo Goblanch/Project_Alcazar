@@ -19,6 +19,7 @@ public class ClickableBase : MonoBehaviour, IClickable
     void IClickable.OnClicked()
     {
         DEBUG_LogItemInfo();
+        UIController.sampleTextEvent?.Invoke(itemData);
     }
 
     void IClickable.OnHold(Vector2 position){
