@@ -7,7 +7,7 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     protected bool _isBeingHovered;
     
 
-#region ICLICKABLE IMPLEMENTATION
+    #region ICLICKABLE IMPLEMENTATIONs
 
     void IClickable.OnClicked()
     {
@@ -31,7 +31,7 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
         OnHold();
     }
 
-#endregion
+    #endregion
 
     /// <summary>
     /// Called once when mouse start hovering the clickable object

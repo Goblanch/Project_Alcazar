@@ -8,14 +8,14 @@ public class UIController : MonoBehaviour
 {
     public MouseContextMenuController contextMenu;
 
-#region CONTEXT MENU ACTIONS
+    #region CONTEXT MENU ACTIONS
 
     public static Action ContextMenuStartEvent;
     public static Action ContextMenuEvent;
     public static Action ContextMenuEndEvent;
     public static Action<ClickableData> ContextMenuDataEvent;
     
-#endregion
+    #endregion
     
     private void OnEnable() {
         ContextMenuEvent += contextMenu.UpdateMenuPosition;
