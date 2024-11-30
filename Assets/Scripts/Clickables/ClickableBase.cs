@@ -5,22 +5,22 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     public ClickableData itemData;
 
     protected bool _isBeingHovered;
+    protected Vector3 _lastMousePosition;
     
 
     #region ICLICKABLE IMPLEMENTATIONs
 
     void IClickable.OnClicked()
     {
-        DEBUG_LogItemInfo();
-        
+        OnClicked();
     }
 
     void IClickable.OnHoverStarted(){
         OnHoverStart();
     }
 
-    void IClickable.OnHover(){
-        OnHover();        
+    void IClickable.OnHover(Vector3 hitPoint){
+        OnHover(hitPoint);        
     }
 
     void IClickable.OnHoverEnded(){
@@ -33,6 +33,10 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
 
     #endregion
 
+    protected virtual void OnClicked(){
+        DEBUG_LogItemInfo();
+    }
+
     /// <summary>
     /// Called once when mouse start hovering the clickable object
     /// </summary>
@@ -44,8 +48,9 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     /// <summary>
     /// Called every frame mouse is hovering the clickable object
     /// </summary>
-    protected virtual void OnHover(){
+    protected virtual void OnHover(Vector3 hitPoint){
         _isBeingHovered = true;
+        _lastMousePosition = hitPoint;
         // Notify UI to show context menu with info
         UIController.ContextMenuEvent?.Invoke();
     }
@@ -64,7 +69,6 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     /// Called every frame meanwhile mouse is holding click over the clickable object
     /// </summary>
     protected virtual void OnHold(){
-        //transform.position = new Vector3(position.x, position.y, transform.position.z);
         // TODO: BUG when holded less than holdThreshold, hold keeps executing when it should be cancelled
         Debug.Log("Holding");
     }

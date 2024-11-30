@@ -7,8 +7,11 @@ public class PlayerController : MonoBehaviour
     public InputListener input;
 
     private bool _mouseHold;
+    private bool _mouseHoldCancelled;
+    private bool _mouseHoldTimerEnd;
     private IClickable _currentHovered;
     private IClickable _lastClickable;
+    private IClickable _lastClickableInteracted;
 
     private void OnEnable() {
         input.ClickEvent            += HandleClick;
@@ -23,10 +26,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update() {
-        if(_mouseHold && _lastClickable != null){
-            _lastClickable.OnHold(Vector2.up);
-        }
-
+        MouseHold();
         InfoRay();
     }
 
@@ -38,22 +38,38 @@ public class PlayerController : MonoBehaviour
         if(Physics.Raycast(ray, out hitInfo)){
             if(hitInfo.collider.gameObject.TryGetComponent<IClickable>(out IClickable clickable)){
                 _lastClickable = clickable;
+                _lastClickableInteracted = clickable;
                 clickable.OnClicked();
             }
         }
     }
 
     public void HandleStartMouseHold(){
+        _mouseHoldTimerEnd = false;
         StartCoroutine(MouseHoldTimer());
+    }
+
+    public void MouseHold(){
+        if(_mouseHold && _lastClickableInteracted != null){
+            _lastClickableInteracted.OnHold(Vector2.up);
+        }
     }
 
     private IEnumerator MouseHoldTimer(){
         yield return new WaitForSeconds(input.clickHoldTime);
-        _mouseHold = true;
+        _mouseHoldTimerEnd = true;
+        if(!_mouseHoldCancelled){
+            _mouseHold = true;            
+        }else{
+            _mouseHoldCancelled = false;
+        }
     }
 
     public void HandleEndMouseHold(){
         _mouseHold = false;
+        if(!_mouseHoldTimerEnd){
+            _mouseHoldCancelled = true;
+        }
     }
 
     private void InfoRay(){
@@ -70,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
             // HOVERING
             if(hovered != null){
-                hovered.OnHover();
+                hovered.OnHover(hitInfo.point);
                 _lastClickable = hovered;
             }
         }else{
