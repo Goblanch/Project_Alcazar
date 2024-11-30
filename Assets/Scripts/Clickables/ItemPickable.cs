@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ItemPickable : ClickableBase, IClickable
+public class ItemPickable : ClickableBase
 {
     protected override void OnHoverStart()
     {
