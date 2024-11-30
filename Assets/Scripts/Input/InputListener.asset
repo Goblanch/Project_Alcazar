@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9276f2751a47252458ad855e343287fe, type: 3}
   m_Name: InputListener
   m_EditorClassIdentifier: 
+  clickHoldTime: 0.2
