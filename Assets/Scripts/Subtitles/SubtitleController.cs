@@ -9,6 +9,9 @@ public class SubtitleController : MonoBehaviour
     private Animator _anim;
     private bool _printingSubtitle;
 
+    public static Action OnSubtitleStarted;
+    public static Action OnSUbtitleEnded;
+
     private void Awake() {
         subtitleText = GetComponentInChildren<TextMeshProUGUI>();
         _anim = GetComponent<Animator>();
@@ -24,10 +27,15 @@ public class SubtitleController : MonoBehaviour
     }
 
     private IEnumerator PrintSubtitle(string subtitle){
+
+        OnSubtitleStarted?.Invoke();
+
         for(int i = 0; i < subtitle.Length; i++){
             subtitleText.text += subtitle[i];
             yield return new WaitForSeconds(0.05f);
         }
+
+        OnSUbtitleEnded?.Invoke();
 
         yield return null;
     }
