@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc8fbe26a156bd4f8a2e8174daa25cf, type: 3}
   m_Name: SubstancesConfiguration
   m_EditorClassIdentifier: 
-  substances: []
+  substances:
+  - {fileID: 1548345032817138213, guid: 714d22f1c81c93c4e930a43e529ecb22, type: 3}
+  - {fileID: 405667930890905077, guid: b969cf2ce4de82a458671bded3853b12, type: 3}
