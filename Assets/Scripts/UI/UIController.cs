@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
 {
     public MouseContextMenuController contextMenu;
     public SubtitleController subtitles;
+    private UIMediator _mediator;
 
     private const float SUBSTIME = 2f;
 
@@ -20,19 +21,27 @@ public class UIController : MonoBehaviour
     
     #endregion
     public static Action<string, float> AddSubtittleEvent;
+
+    public void Configure(UIMediator _mediator){
+        this._mediator = _mediator;
+    }
+
     private void OnEnable() {
+        // TODO: change to UIMediator function
         ContextMenuEvent += contextMenu.UpdateMenuPosition;
-        ContextMenuStartEvent += contextMenu.ShowMouseContextMenu;
-        ContextMenuDataEvent +=  contextMenu.SetContextMenuData;
-        ContextMenuEndEvent += contextMenu.HideMouseContextMenu;
+        ContextMenuStartEvent += _mediator.ShowContextMenu;
+        ContextMenuDataEvent +=  _mediator.SetContextMenuData;
+        ContextMenuEndEvent += _mediator.HideMouseContextMenu;
 
         AddSubtittleEvent += AddSubtitle;
     }
 
     private void OnDisable() {
+        // TODO: change to UIMediator function
         ContextMenuEvent -= contextMenu.UpdateMenuPosition;
-        ContextMenuStartEvent -= contextMenu.ShowMouseContextMenu;
-        ContextMenuEndEvent -= contextMenu.HideMouseContextMenu;
+        ContextMenuStartEvent -= _mediator.ShowContextMenu;
+        ContextMenuEndEvent -= _mediator.HideMouseContextMenu;
+        ContextMenuDataEvent -=  _mediator.SetContextMenuData;
 
         AddSubtittleEvent -= AddSubtitle;
     }

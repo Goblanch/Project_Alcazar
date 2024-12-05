@@ -8,6 +8,12 @@ public class MouseContextMenuController : MonoBehaviour
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemDescription;
 
+    private UIMediator _mediator;
+
+    public void Configure(UIMediator _mediator){
+        this._mediator = _mediator;
+    }
+
     private void Start() {
         HideMouseContextMenu();
     }
