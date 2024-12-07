@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
             if(hitInfo.collider.gameObject.TryGetComponent<IClickable>(out IClickable clickable)){
                 _lastClickable = clickable;
                 _lastClickableInteracted = clickable;
-                clickable.OnClicked();
+                clickable.HandleClicked();
             }
         }
     }
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     public void MouseHold(){
         if(_mouseHold && _lastClickableInteracted != null){
-            _lastClickableInteracted.OnHold(Vector2.up);
+            _lastClickableInteracted.HandleHold(Vector2.up);
         }
     }
 
@@ -83,18 +83,18 @@ public class PlayerController : MonoBehaviour
 
             // HOVER START
             if(_lastClickable != hovered && hovered != null){
-                hovered.OnHoverStarted();
+                hovered.HandleHoverStart();
             }
 
             // HOVERING
             if(hovered != null){
-                hovered.OnHover(hitInfo.point);
+                hovered.HandleHover(hitInfo.point);
                 _lastClickable = hovered;
             }
         }else{
             // HOVER ENDED
             if(_lastClickable != null){
-                _lastClickable.OnHoverEnded();
+                _lastClickable.HandleHoverEnd();
                 _lastClickable = null;
             }
         }

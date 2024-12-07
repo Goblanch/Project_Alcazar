@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class ItemPickable : ClickableBase
 {
-
+    
     protected override void OnClicked()
     {
         base.OnClicked();

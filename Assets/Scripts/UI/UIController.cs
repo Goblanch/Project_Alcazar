@@ -28,24 +28,26 @@ public class UIController : MonoBehaviour
 
     private void OnEnable() {
         // TODO: change to UIMediator function
-        ContextMenuEvent += contextMenu.UpdateMenuPosition;
-        ContextMenuStartEvent += _mediator.ShowContextMenu;
-        ContextMenuDataEvent +=  _mediator.SetContextMenuData;
-        ContextMenuEndEvent += _mediator.HideMouseContextMenu;
+        // ContextMenuEvent += contextMenu.UpdateMenuPosition;
+        // ContextMenuStartEvent += _mediator.ShowContextMenu;
+        // ContextMenuDataEvent +=  _mediator.SetContextMenuData;
+        // ContextMenuEndEvent += _mediator.HideMouseContextMenu;
 
-        AddSubtittleEvent += AddSubtitle;
+        //AddSubtittleEvent += AddSubtitle;
     }
 
     private void OnDisable() {
         // TODO: change to UIMediator function
-        ContextMenuEvent -= contextMenu.UpdateMenuPosition;
-        ContextMenuStartEvent -= _mediator.ShowContextMenu;
-        ContextMenuEndEvent -= _mediator.HideMouseContextMenu;
-        ContextMenuDataEvent -=  _mediator.SetContextMenuData;
+        // ContextMenuEvent -= contextMenu.UpdateMenuPosition;
+        // ContextMenuStartEvent -= _mediator.ShowContextMenu;
+        // ContextMenuEndEvent -= _mediator.HideMouseContextMenu;
+        // ContextMenuDataEvent -=  _mediator.SetContextMenuData;
 
-        AddSubtittleEvent -= AddSubtitle;
+        //AddSubtittleEvent -= AddSubtitle;
     }
 
+    // TODO: encapsular la lógica de los substítulo dentro de una clase de subtítulos y añadirlo
+    // TODO: al mediator. Una vez hecho, borrar esta clase UIController
     public void AddSubtitle(string subtitle, float time = SUBSTIME){
         subtitles.gameObject.SetActive(true);
         subtitles.AddSubtitle(subtitle, time);

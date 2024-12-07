@@ -8,9 +8,14 @@ public class SubtitleController : MonoBehaviour
     private TextMeshProUGUI subtitleText;
     private Animator _anim;
     private bool _printingSubtitle;
+    private UIMediator _mediator;
 
     public static Action OnSubtitleStarted;
     public static Action OnSUbtitleEnded;
+
+    public void Configure(UIMediator _mediator){
+        this._mediator = _mediator;
+    }
 
     private void Awake() {
         subtitleText = GetComponentInChildren<TextMeshProUGUI>();

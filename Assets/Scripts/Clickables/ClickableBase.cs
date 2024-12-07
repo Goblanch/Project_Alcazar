@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public abstract class ClickableBase : MonoBehaviour, IClickable
 {
@@ -7,28 +8,41 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     protected bool _isBeingHovered;
     protected Vector3 _lastMousePosition;
     
+    private void Start() {
+        ServiceLocator.Instance.GetService<UIMediator>().SetupObservers(this);
+    }
 
     #region ICLICKABLE IMPLEMENTATIONs
 
-    void IClickable.OnClicked()
-    {
+    public event Action OnClickedEvent;
+    public event Action<ClickableData> OnHoverStartEvent;
+    public event Action OnHoverEvent;
+    public event Action OnHoverEndEvent;
+    public event Action OnHoldEvent;
+
+    void IClickable.HandleClicked(){
         OnClicked();
+        OnClickedEvent?.Invoke();
     }
 
-    void IClickable.OnHoverStarted(){
+    void IClickable.HandleHoverStart(){
         OnHoverStart();
+        OnHoverStartEvent?.Invoke(itemData);
     }
 
-    void IClickable.OnHover(Vector3 hitPoint){
-        OnHover(hitPoint);        
+    void IClickable.HandleHover(Vector3 hitPoint){
+        OnHover(hitPoint); 
+        OnHoverEvent?.Invoke();       
     }
 
-    void IClickable.OnHoverEnded(){
+    void IClickable.HandleHoverEnd(){
         OnHoverEnded();
+        OnHoverEndEvent?.Invoke();
     }
 
-    void IClickable.OnHold(Vector2 position){
+    void IClickable.HandleHold(Vector2 position){
         OnHold();
+        OnHoldEvent?.Invoke();
     }
 
     #endregion
@@ -40,10 +54,7 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     /// <summary>
     /// Called once when mouse start hovering the clickable object
     /// </summary>
-    protected virtual void OnHoverStart(){
-        UIController.ContextMenuStartEvent?.Invoke();
-        UIController.ContextMenuDataEvent?.Invoke(itemData);
-    }
+    protected virtual void OnHoverStart(){}
 
     /// <summary>
     /// Called every frame mouse is hovering the clickable object
@@ -51,8 +62,6 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     protected virtual void OnHover(Vector3 hitPoint){
         _isBeingHovered = true;
         _lastMousePosition = hitPoint;
-        // Notify UI to show context menu with info
-        UIController.ContextMenuEvent?.Invoke();
     }
 
     /// <summary>
@@ -61,7 +70,6 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     protected virtual void OnHoverEnded(){
         if(_isBeingHovered){
             _isBeingHovered = false;
-            UIController.ContextMenuEndEvent?.Invoke();
         }
     }
 
