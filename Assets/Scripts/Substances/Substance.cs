@@ -7,7 +7,7 @@ namespace Substances{
         iron, obsidian, fire
     }
 
-    public abstract class Substance : MonoBehaviour
+    public abstract class Substance : ItemPickable
     {
         [SerializeField] protected SubstanceTypes _substanceId;
         public SubstanceTypes SubstanceID => _substanceId;

@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c65b3c7322ab440a99168289996bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 04e63132278563549b7603de8ba49dde, type: 2}
   _substanceId: 0
 --- !u!33 &2810814084432597425
 MeshFilter:

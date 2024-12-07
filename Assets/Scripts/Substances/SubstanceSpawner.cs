@@ -15,6 +15,7 @@ public class SubstanceSpawner : ClickableBase
     {
         base.OnClicked();
         Substance substance = _substanceFactory.Create(_substanceToSpawn);
+        substance.ConfigureClickable();
         substance.gameObject.transform.position = transform.position;
     }
 }
