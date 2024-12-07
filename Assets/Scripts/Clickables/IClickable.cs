@@ -8,10 +8,12 @@ public interface IClickable
     public event Action OnHoverEvent;
     public event Action OnHoverEndEvent;
     public event Action OnHoldEvent;
+    public event Action OnHoldEndEvent;
 
     public void HandleClicked();
     public void HandleHoverStart();
     public void HandleHover(Vector3 hitPoint);
     public void HandleHoverEnd();
     public void HandleHold(Vector2 position);
+    public void HandleHoldEnd();
 }

@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void HandleClick(){
-        UIController.AddSubtittleEvent?.Invoke("Hello! This is the first subtitle of my awesome game!", 5f);
+
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hitInfo;
@@ -72,9 +72,13 @@ public class PlayerController : MonoBehaviour
         if(!_mouseHoldTimerEnd){
             _mouseHoldCancelled = true;
         }
+
+        if(_lastClickable != null) _lastClickable.HandleHoldEnd();
     }
 
     private void InfoRay(){
+        if(_mouseHold) return;
+        Debug.Log("INFORAY");
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hitInfo;
 

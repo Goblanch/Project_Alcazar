@@ -8,8 +8,12 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     protected bool _isBeingHovered;
     protected Vector3 _lastMousePosition;
     
-    private void Start() {
+    public void ConfigureClickable(){
         ServiceLocator.Instance.GetService<UIMediator>().SetupObservers(this);
+    }
+
+    protected void Start() {
+        ConfigureClickable();
     }
 
     #region ICLICKABLE IMPLEMENTATIONs
@@ -19,6 +23,7 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     public event Action OnHoverEvent;
     public event Action OnHoverEndEvent;
     public event Action OnHoldEvent;
+    public event Action OnHoldEndEvent;
 
     void IClickable.HandleClicked(){
         OnClicked();
@@ -43,6 +48,11 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
     void IClickable.HandleHold(Vector2 position){
         OnHold();
         OnHoldEvent?.Invoke();
+    }
+
+    void IClickable.HandleHoldEnd(){
+        OnHoldEnd();
+        OnHoldEndEvent?.Invoke();
     }
 
     #endregion
@@ -80,6 +90,8 @@ public abstract class ClickableBase : MonoBehaviour, IClickable
         // TODO: BUG when holded less than holdThreshold, hold keeps executing when it should be cancelled
         Debug.Log("Holding");
     }
+
+    protected virtual void OnHoldEnd(){}
 
     protected void DEBUG_LogItemInfo(){
         Debug.Log("ITEM NAME: " + itemData.name);
