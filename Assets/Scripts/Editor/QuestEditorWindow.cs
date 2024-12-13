@@ -112,7 +112,7 @@ namespace GBQuestSystem{
             EditorGUILayout.Space();
 
             // NEXT QUEST FIELD
-            nextQuest = (GBQuestBase)EditorGUILayout.ObjectField("Referencia de Personaje", nextQuest, typeof(GBQuestBase), false);
+            nextQuest = (GBQuestBase)EditorGUILayout.ObjectField("Next Quest", nextQuest, typeof(GBQuestBase), false);
 
             if(GUILayout.Button("Generate Quest File")){
                 // TODO: Call SO generator method
