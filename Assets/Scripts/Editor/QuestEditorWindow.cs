@@ -189,7 +189,7 @@ namespace GBQuestSystem{
         private void SetSelectedQuestData(){
             initialDialog = selQuest.initialDialog;
             endDialog = selQuest.endDialog;
-            nextQuest = selQuest.nextQuest;
+            //nextQuest = selQuest.nextQuest;
         }
 
         private void SaveQuestChanges(){
@@ -253,7 +253,7 @@ namespace GBQuestSystem{
         private void SaveDataToSO(GBQuestData questInstance){
             questInstance.initialDialog = initialDialog;
             questInstance.endDialog = endDialog;
-            questInstance.nextQuest = nextQuest;
+            //questInstance.nextQuest = nextQuest;
         }
     }
 }

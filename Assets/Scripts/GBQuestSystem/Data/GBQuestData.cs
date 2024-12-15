@@ -5,9 +5,10 @@ namespace GBQuestSystem{
     [CreateAssetMenu(fileName = "GBQuestData", menuName = "GBQuest/GBQuestData")]
     public class GBQuestData : ScriptableObject
     {
+        public string questTittle;
         public List<DialogStructure> initialDialog = new List<DialogStructure>();
         public List<DialogStructure> endDialog = new List<DialogStructure>();
-        public GBQuestBase nextQuest;
+        public GBQuestData nextQuest;
     }   
 
 }

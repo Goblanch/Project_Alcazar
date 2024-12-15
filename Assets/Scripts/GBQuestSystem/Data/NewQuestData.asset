@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15099b6c066b12942a8e37a80d273f02, type: 3}
   m_Name: NewQuestData
   m_EditorClassIdentifier: 
+  questTittle: Quest01
   initialDialog:
   - phrase: Hola que tal
     sender: 0
@@ -22,4 +23,4 @@ MonoBehaviour:
     sender: 0
   - phrase: "Okay Adi\xF3s"
     sender: 1
-  nextQuest: {fileID: 11400000, guid: 0ee668486ff73794b8edcd7f9f70064c, type: 2}
+  nextQuest: {fileID: 0}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15099b6c066b12942a8e37a80d273f02, type: 3}
   m_Name: SecondQuestData
   m_EditorClassIdentifier: 
+  questTittle: Quest02
   initialDialog:
   - phrase: Hola
     sender: 0
